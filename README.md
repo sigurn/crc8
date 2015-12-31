@@ -22,7 +22,7 @@ func main() {
 ```
 
 ## Documentation
-For more documentation see [package documentation](https://godoc.org/github.com/sigurn/crc16)
+For more documentation see [package documentation](https://godoc.org/github.com/sigurn/crc8)
 
 ## License
 
