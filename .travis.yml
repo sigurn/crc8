@@ -1,13 +1,16 @@
 language: go
-
+sudo: false
 env:
-    - GIMME_OS=linux GIMME_ARCH=amd64
-    - GIMME_OS=darwin GIMME_ARCH=amd64
-    - GIMME_OS=windows GIMME_ARCH=amd64
-
+- GIMME_OS=linux GIMME_ARCH=amd64
+- GIMME_OS=darwin GIMME_ARCH=amd64
+- GIMME_OS=windows GIMME_ARCH=amd64
+secure:
+- CUGXpDaNEA9nG6c8cM2Ng/x6AfKHQFcPGUy69bpz/PgrYOPyfnxSvPj5HbZjTZ8RQdc4870mrtTL6FMy1QJTAuNg8QPXAm2U2ZV3MgKJeKBYovSW5+ju7o2Wrvr30Qu5+KdLUplainStF9/j+M33UsB/KM8pKiT0Qy7GypJy95BI3LklQ28lzO5K+r8p5SB8VvK7Ui+WT5XLaKwsSni20WNXJDpCR8HPcyFsOReIoQpfS4wX0uTYaf+YiZ6d5leEhm78hGFVzWwTCgQT4nNtGaNQ034Y6Uei1SsQnZQ70LYljJR6IoSK+MyLuVUP6s0hYqsM6eZVEo7sAd26+7nIHFcvG7hSJ7L2Y38xJJ6dfIuhANqj/M19D/CXqTnzsLtOoUUZaowAezC7N3pEVOlfrusbSTI++8ul3lUVh8tWG1kDWcudG5GIGv2HfIO2tJ7flLAu7Lh8TmwJxWjUVllYEgJQMMTEhtwuX1Oisn+8/sOKK18VQ1ws42mbu4eYfQHLv2YVMwSQexv82rxs1TSTdSDUuKr6XolVlNR0/iXMOure6TjxUHBhUMVtgvRjcEP+GZ/mKNmTUQ2+fXvCikYZ6m3rioJCmjKwM9L/keTpZ3UsVFeZ+/IKMW5dkTjnjxm+b9r4ZgUdWqcZdsVT30GwUmF8Nm8s+VPVPAr3GsD9838=
 install:
-    - go get -d -v ./...
-
+- go get -d -v ./...
+- go get golang.org/x/tools/cmd/cover
+- go get github.com/mattn/goveralls
+- if ! go get github.com/golang/tools/cmd/cover; then go get golang.org/x/tools/cmd/cover; fi
 script:
-    - go test -v ./...
-
+- go test -v -covermode=count -coverprofile=coverage.out
+- $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
