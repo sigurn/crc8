@@ -1,14 +1,14 @@
 language: go
 env:
-- GIMME_OS=linux GIMME_ARCH=amd64
-- GIMME_OS=darwin GIMME_ARCH=amd64
-- GIMME_OS=windows GIMME_ARCH=amd64
-secure: "PU/1+y6e0NTk1BvieC09ruXygFJ/l4Jum1I75vV8XES7TPi2U03TAJJhXZcGzoy516V3z9/kfDXJUUzf5EC9jpp6uEwNRknkodhpllcdhv9UGDRjKETvoUSeWbQJnbA7xJHIVDEHlwbKZgJN/GVckjXuGk1BZU02fVXII1DweTVRJJwdAE//hRqlHE7EH607iuzvUqIUl3sQPgfQxVG+yxe6DRNBeV8Dwv7OWagJn/viqRanDtISeO+sc+kUbDKJJcfDSwQlVsjI9QLG3CiCjYaibniJz9ezrUa0gok187yaL1vCozDXkrmmKUrD7G03lz+sxGWWUpBs3Klt/zOiIcHlnBvFuB7NBHRMnURqZNFPOuSN8eJ3B2OGGqvmnfGEbHMrZAkSUjqmWQa7rBTPsij1VGzbzLlgfy+qh/e1aQ5NYw3JW5OJUNtlNd3GQQNRDcS2jphYuvh7CWFPhhajqbEsDZlRHZwU5c1egKlyaFBPFx0lc5cmRn22GZoWHOd+F3TWwey2uJHEbs51yApqy0/olOZS1JrC/s3rpliiz3CuaHmqySWdF1sNEoSeUnYddMmpY6KCo7YnpoRT/LHCI3TIAwiK9TMuOfaj/vmeswAlfyQ84LoiUeiwRk9oA0tOpUfr/4ZlLnWXEjnzlGRIOGKT/hLZH+v3O9FG5SrJxnw="
+  GIMME_OS=linux GIMME_ARCH=amd64
+  GIMME_OS=darwin GIMME_ARCH=amd64
+  GIMME_OS=windows GIMME_ARCH=amd64
+secure: "BDYvndnBoXOkJ+6hlKAgrhoxKIJPyHJa2c7mz8/WP4Ete+Wc8tj6DN47la8pDe0gijEs4bXGLGALC0ItJZtHSPdN+uDM9rFG2A1UWn+Yn0q6IW6NoZgy6RXw2EYfLmCws4r3JLYxRavK1ZeXzJ382BGJtQKM90s940f02cGJ+eL7lSwiYCyOT7dsq/EVnLRAKyxG7OpDX/F8IOKrX5yZKNPnDwokoD1XfMCo5I6niJnR7P+7FDQ5a63/RR7/cf5uvhf58sl6fujDjmLN5O5AQKL+tUIpWbD+YJqawukgTNxyyaTOxoMXpg3GYhHlZThsUZUFG25ad6l6vKR3ts5XlssDnkC5NJcFDQ8OO9G2ucdr3zm7etXGX37enZcitCfC0p2aHsICkpLnPrkWShAIEp7akjdval7McS4wtG7DderL4IyYn4iMmOkqHTgyjEU02Jm7GhU6GWviEmvvAN8iPyOYtBfNOKPQBFnKSfNvEZWS/A6Y7dQFQvhFbMfu5IBymzz1/pcZfvFruakgOLY94D9VY/0R0CBZoiUqOy2/vzR3EemI/kMxYWrYafiyhWmdv2hgxUCMclrhpzqYPWdT4XZVse0C3iFBYWevL47pEurqX5lLKVrSvf3jZFqL+dgxiVY7edCh7iec7nFGaaTgkD4bjctKNPysxV4LqbMo8YE="
 install:
-- go get -d -v ./...
-- go get golang.org/x/tools/cmd/cover
-- go get github.com/mattn/goveralls
-- if ! go get github.com/golang/tools/cmd/cover; then go get golang.org/x/tools/cmd/cover; fi
+  go get -d -v ./...
+  go get golang.org/x/tools/cmd/cover
+  go get github.com/mattn/goveralls
+  if ! go get github.com/golang/tools/cmd/cover; then go get golang.org/x/tools/cmd/cover; fi
 script:
-- go test -v -covermode=count -coverprofile=coverage.out
-- $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
+  go test -v -covermode=count -coverprofile=coverage.out
+  $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
