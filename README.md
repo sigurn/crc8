@@ -1,6 +1,7 @@
 
 # crc8
 [![Build Status](https://travis-ci.org/sigurn/crc8.svg?branch=master)](https://travis-ci.org/sigurn/crc8)
+[![Coverage Status](https://coveralls.io/repos/sigurn/crc8/badge.svg?branch=master&service=github)](https://coveralls.io/github/sigurn/crc8?branch=master)
 [![GoDoc](https://godoc.org/github.com/sigurn/crc8?status.svg)](https://godoc.org/github.com/sigurn/crc8)
 
 Go implementation of CRC-8 calculation for majority of widely-used polinomials.
