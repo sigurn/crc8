@@ -3,7 +3,7 @@
 // It provides parameters for the majority of well-known CRC-8 algorithms.
 package crc8
 
-import "github.com/sigurn/utils"
+import "math/bits"
 
 // Params represents parameters of a CRC-8 algorithm including polynomial and initial value.
 // More information about algorithms parametrization and parameter descriptions
@@ -68,7 +68,7 @@ func Init(table *Table) uint8 {
 func Update(crc uint8, data []byte, table *Table) uint8 {
 	for _, d := range data {
 		if table.params.RefIn {
-			d = utils.ReverseByte(d)
+			d = bits.Reverse8(d)
 		}
 		crc = table.data[crc^d]
 	}
@@ -79,7 +79,7 @@ func Update(crc uint8, data []byte, table *Table) uint8 {
 // Complete returns the result of CRC calculation and post-calculation processing of the crc.
 func Complete(crc uint8, table *Table) uint8 {
 	if table.params.RefOut {
-		crc = utils.ReverseUint8(crc)
+		crc = bits.Reverse8(crc)
 	}
 
 	return crc ^ table.params.XorOut
