@@ -66,13 +66,16 @@ func Init(table *Table) uint8 {
 
 // Update returns the result of adding the bytes in data to the crc.
 func Update(crc uint8, data []byte, table *Table) uint8 {
-	for _, d := range data {
-		if table.params.RefIn {
+	if table.params.RefIn {
+		for _, d := range data {
 			d = bits.Reverse8(d)
+			crc = table.data[crc^d]
 		}
-		crc = table.data[crc^d]
+	} else {
+		for _, d := range data {
+			crc = table.data[crc^d]
+		}
 	}
-
 	return crc
 }
 
