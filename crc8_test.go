@@ -23,6 +23,14 @@ func TestCRC8(t *testing.T) {
 	testSelectedCRC8(CRC8, t)
 }
 
+func BenchmarkCRC8WCDMA(b *testing.B) {
+	table := MakeTable(CRC8_WCDMA)
+
+	for i := 0; i < b.N; i++ {
+		Checksum(testData, table)
+	}
+}
+
 func TestCRC8_CDMA2000(t *testing.T) {
 	testSelectedCRC8(CRC8_CDMA2000, t)
 }
