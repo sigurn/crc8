@@ -35,7 +35,7 @@ var (
 	CRC8_WCDMA    = Params{0x9B, 0x00, true, true, 0x00, 0x25, "CRC-8/WCDMA"}
 )
 
-// Table is a 256-byte table representing polinomial and algorithm settings for efficient processing.
+// Table is a 256-byte table representing polynomial and algorithm settings for efficient processing.
 type Table struct {
 	params Params
 	data   [256]uint8
@@ -88,7 +88,7 @@ func Complete(crc uint8, table *Table) uint8 {
 	return crc ^ table.params.XorOut
 }
 
-// Checksum returns CRC checksum of data usign scpecified algorithm represented by the Table.
+// Checksum returns CRC checksum of data using specified algorithm represented by the Table.
 func Checksum(data []byte, table *Table) uint8 {
 	crc := Init(table)
 	crc = Update(crc, data, table)
