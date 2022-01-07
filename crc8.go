@@ -3,7 +3,7 @@
 // It provides parameters for the majority of well-known CRC-8 algorithms.
 package crc8
 
-import "github.com/sigurn/utils"
+import "math/bits"
 
 // Params represents parameters of a CRC-8 algorithm including polynomial and initial value.
 // More information about algorithms parametrization and parameter descriptions
@@ -35,7 +35,7 @@ var (
 	CRC8_WCDMA    = Params{0x9B, 0x00, true, true, 0x00, 0x25, "CRC-8/WCDMA"}
 )
 
-// Table is a 256-byte table representing polinomial and algorithm settings for efficient processing.
+// Table is a 256-byte table representing polynomial and algorithm settings for efficient processing.
 type Table struct {
 	params Params
 	data   [256]uint8
@@ -66,26 +66,29 @@ func Init(table *Table) uint8 {
 
 // Update returns the result of adding the bytes in data to the crc.
 func Update(crc uint8, data []byte, table *Table) uint8 {
-	for _, d := range data {
-		if table.params.RefIn {
-			d = utils.ReverseByte(d)
+	if table.params.RefIn {
+		for _, d := range data {
+			d = bits.Reverse8(d)
+			crc = table.data[crc^d]
 		}
-		crc = table.data[crc^d]
+	} else {
+		for _, d := range data {
+			crc = table.data[crc^d]
+		}
 	}
-
 	return crc
 }
 
 // Complete returns the result of CRC calculation and post-calculation processing of the crc.
 func Complete(crc uint8, table *Table) uint8 {
 	if table.params.RefOut {
-		crc = utils.ReverseUint8(crc)
+		crc = bits.Reverse8(crc)
 	}
 
 	return crc ^ table.params.XorOut
 }
 
-// Checksum returns CRC checksum of data usign scpecified algorithm represented by the Table.
+// Checksum returns CRC checksum of data using specified algorithm represented by the Table.
 func Checksum(data []byte, table *Table) uint8 {
 	crc := Init(table)
 	crc = Update(crc, data, table)
